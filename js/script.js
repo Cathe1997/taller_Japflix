@@ -67,22 +67,24 @@ function showMovies(moviesArray) {
 
 // Función para mostrar detalles de la película en el offcanvas
 function showMovieDetails(movie) {
-    OFFCANVAS_BODY.innerHTML = `
-        <h2>${movie.title}</h2>
-        <p>${movie.overview}</p>
-    `;
+    document.getElementById("offcanvasTopLabel").innerText = movie.title;
+    document.getElementById("sinopsis").innerText = movie.overview;
 
+    // Mostrar géneros
+    let genresList = document.getElementById("generos");
+    genresList.innerHTML = "";
     movie.genres.forEach(genre => {
-        OFFCANVAS_BODY.innerHTML += `<p>${genre.name}</p>`;
+        let listItem = document.createElement("li");
+        listItem.innerText = genre.name;
+        genresList.appendChild(listItem);
     });
 
+    // Actualizar los datos en el dropdown
     let releaseDateYear = movie.release_date.slice(0, 4);
-    DROPDOWN_MENU.innerHTML = `
-        <li class="dropdown-item"><strong>Year:</strong> ${releaseDateYear}</li>
-        <li class="dropdown-item"><strong>Runtime:</strong> ${movie.runtime} mins</li>
-        <li class="dropdown-item"><strong>Budget:</strong> $${movie.budget.toLocaleString()}</li>
-        <li class="dropdown-item"><strong>Revenue:</strong> $${movie.revenue.toLocaleString()}</li>
-    `;
+    document.getElementById("anioLanzamiento").innerText = `Year: ${releaseDateYear}`;
+    document.getElementById("duracion").innerText = `Runtime: ${movie.runtime} mins`;
+    document.getElementById("presupuesto").innerText = `Budget: $${movie.budget.toLocaleString()}`;
+    document.getElementById("ganancias").innerText = `Revenue: $${movie.revenue.toLocaleString()}`;
 }
 
 // Función para filtrar películas
